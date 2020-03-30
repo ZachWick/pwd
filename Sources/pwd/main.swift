@@ -32,10 +32,17 @@ func getLogicalPath() {
     print(path)
 }
 
+func getPhysicalPath() {
+    let pwd = fileManager.currentDirectoryPath
+    let path = NSURL.fileURL(withPath: pwd)
+    let physicalPath = path.resolvingSymlinksInPath()
+    print(physicalPath)
+}
+
 if CommandLine.argc == 1 || CommandLine.arguments[1] == "-L" {
     getLogicalPath()
 } else if CommandLine.argc == 2 && CommandLine.arguments[1] == "-P" {
-    unknownCommand()
+    getPhysicalPath()
 } else {
     unknownCommand()
 }
